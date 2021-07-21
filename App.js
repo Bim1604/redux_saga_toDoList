@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
-import taskListReducer from './src/reducers/TaskListReducer';
-import numberReducer from './src/reducers/NumberReducer';
 import store from './src/store';
 import Counter from './src/components/Counter';
 import AddView from './src/components/AddView';
+import TaskFlatList from './src/components/TaskFlatList';
 class App extends Component {
   render() {
     return (
@@ -14,7 +12,7 @@ class App extends Component {
         <View style={styles.container}>
           <AddView />
           <Counter />
-          {/* <TaskListContainer /> */}
+          <TaskFlatList />
         </View>
       </Provider>
     );

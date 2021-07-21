@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,28 +8,30 @@ import {
   View,
 } from 'react-native';
 
-import {connect} from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { DeleteTask, FinishTask } from '../../app/taskListSlice';
 
-class TaskFlatList extends Component {
-  renderItem = ({item, index}) => {
-    const {onFinishedItem, onDeleteItem} = this.props;
 
+function TaskFlatList(props) {
+  const dispatch = useDispatch();
+  const {data} = useSelector(state => state.taskList);
+  const renderItem = ({ item, index }) => {
     return (
       <View style={styles.itemContainer}>
         <View>
           <TouchableOpacity
-            style={{marginTop: -2}}
-            onPress={() => onFinishedItem(index)}>
+            style={{ marginTop: -2 }}
+            onPress={() => dispatch(FinishTask(index))}>
             <Text> {item.isFinished ? '✅' : '🕘'} </Text>
           </TouchableOpacity>
         </View>
-        <View style={{flex: 1}}>
-          <Text style={{color: 'black'}}>{item.title}</Text>
+        <View style={{ flex: 1 }}>
+          <Text style={{ color: 'black' }}>{item.title}</Text>
         </View>
-        <View style={{justifyContent: 'center'}}>
+        <View style={{ justifyContent: 'center' }}>
           <TouchableOpacity
-            style={{marginTop: -2}}
-            onPress={() => onDeleteItem(index)}>
+            style={{ marginTop: -2 }}
+            onPress={() => dispatch(DeleteTask(index))}>
             <Text>{'❌'}</Text>
           </TouchableOpacity>
         </View>
@@ -37,19 +39,13 @@ class TaskFlatList extends Component {
     );
   };
 
-  render() {
-    console.log(this.props);
-    const {dataList} = this.props;
-
-    return (
-      <FlatList
-        data={dataList}
-        extraData={this.props}
-        keyExtractor={(item, index) => index}
-        renderItem={this.renderItem}
-      />
-    );
-  }
+  return (
+    <FlatList
+      data={data}
+      keyExtractor={(item, index) => index}
+      renderItem={renderItem}
+    />
+  );
 }
 
 export default connect()(TaskFlatList);
@@ -65,7 +61,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 5,
     borderColor: 'gray',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowColor: 'gray',
     elevation: 2,

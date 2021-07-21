@@ -12,9 +12,7 @@ const counter = createSlice({
   initialState,
   reducers: {
     increase(state) {
-      console.log("hi");
       state.number++;
-      console.log(state.number);
     },
     decrease(state) {
       state.number--;

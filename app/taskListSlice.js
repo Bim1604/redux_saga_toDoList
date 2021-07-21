@@ -11,16 +11,16 @@ const taskList = createSlice({
     initialState,
     reducers: {
         AddTask(state, action) {
-            console.log('zo');
             const newTask = { title: action.payload, isFinished: false };
             state.data = [...state.data, newTask];
-            console.log(state.data);
         },
-        FinishTask(state) {
-            state.number--;
+        FinishTask(state, action) {
+            state.data[action.payload].isFinished = true;
+            state.data = [...state.data];
         },
-        DeleteTask(state) {
-            state.number--;
+        DeleteTask(state, action) {
+            state.data = state.data.filter((item, i) => i !== action.payload);
+            state.data = [...state.data];
         },
     },
 });
