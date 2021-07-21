@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import {
   StyleSheet,
   Platform,
@@ -13,12 +13,8 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import { AddTask } from '../../app/taskListSlice';
 
 function AddView(props) {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {newTaskName: ''};
-  // }
   const dispatch = useDispatch();
-
+  const [newTask, SetNewTask] = useState('');
   return (
     <View style={styles.addView}>
       <Text style={{ fontSize: 18, marginBottom: 10 }}>To Do App</Text>
@@ -27,17 +23,15 @@ function AddView(props) {
           <TextInput
             returnKeyType="done"
             underlineColorAndroid="transparent"
-            // value={`${this.state.newTaskName}`}
-            // onSubmitEditing={() => onAddNewTask(this.state.newTaskName)}
-            // onChangeText={text => this.setState({ newTaskName: text })}
+            value={newTask}
+            onChangeText={text => SetNewTask(text)}
             placeholder="Task name"
             style={[{ flex: 1 }, styles.input]}
           />
         </View>
-
         <TouchableOpacity
           style={styles.button}
-          onPress={() => dispatch(AddTask)}>
+          onPress={() => dispatch(AddTask(newTask))}>
           <Text style={{ color: 'white' }}>Add</Text>
         </TouchableOpacity>
       </View>

@@ -1,10 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, {Component} from 'react';
 import {
-  AppRegistry,
   StyleSheet,
-  Platform,
-  TextInput,
   Text,
   TouchableOpacity,
   FlatList,
@@ -13,7 +10,7 @@ import {
 
 import {connect} from 'react-redux';
 
-export default class TaskFlatList extends Component {
+class TaskFlatList extends Component {
   renderItem = ({item, index}) => {
     const {onFinishedItem, onDeleteItem} = this.props;
 
@@ -54,6 +51,8 @@ export default class TaskFlatList extends Component {
     );
   }
 }
+
+export default connect()(TaskFlatList);
 
 const styles = StyleSheet.create({
   itemContainer: {
