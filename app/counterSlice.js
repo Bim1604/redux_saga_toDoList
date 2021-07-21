@@ -17,16 +17,23 @@ const counter = createSlice({
     decrease(state) {
       state.number--;
     },
-    // incrementSaga: (state, action: PayLoadAction<number>) => {
-    //   state.status = 'loading';
-    // },
-    // incrementSagaSuccess: (state, action: PayLoadAction<number>) => {
-    //   state.status = 'idle';
-    //   state.value += action.payload;
-    // },
+    incrementSaga: (state, action: PayLoadAction<number>) => {
+      state.status = 'loading';
+    },
+    incrementSagaSuccess: (state, action: PayLoadAction<number>) => {
+      state.status = 'idle';
+      state.number += action.payload;
+    },
+    decrementSaga: (state, action: PayLoadAction<number>) => {
+      state.status = 'loading';
+    },
+    decrementSagaSuccess: (state, action: PayLoadAction<number>) => {
+      state.status = 'idle';
+      state.number -= action.payload;
+    },
   },
 });
 
-export const { increase, decrease} = counter.actions;
+export const { increase, decrease, incrementSaga, incrementSagaSuccess, decrementSaga, decrementSagaSuccess} = counter.actions;
 
 export default counter.reducer;

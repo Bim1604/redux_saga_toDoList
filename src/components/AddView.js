@@ -31,7 +31,11 @@ function AddView(props) {
         </View>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => dispatch(AddTask(newTask))}>
+          onPress={() => {
+            if (newTask !== '') {
+              dispatch(AddTask(newTask));
+            }
+          }}>
           <Text style={{ color: 'white' }}>Add</Text>
         </TouchableOpacity>
       </View>
