@@ -1,29 +1,20 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
-
-import AddViewContainer from './src/container/AddViewContainer';
-import CounterContainer from './src/container/CounterContainer';
-import TaskListContainer from './src/container/TaskListContainer';
 import {createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import taskListReducer from './src/reducers/TaskListReducer';
 import numberReducer from './src/reducers/NumberReducer';
-
-const store = createStore(
-  combineReducers({
-    number: numberReducer,
-    taskList: taskListReducer,
-  }),
-);
-
+import store from './src/store';
+import Counter from './src/components/Counter';
+import AddView from './src/components/AddView';
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <AddViewContainer />
-          <CounterContainer />
-          <TaskListContainer />
+          <AddView />
+          <Counter />
+          {/* <TaskListContainer /> */}
         </View>
       </Provider>
     );

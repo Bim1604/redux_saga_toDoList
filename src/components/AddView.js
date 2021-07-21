@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Platform,
@@ -9,44 +9,43 @@ import {
   View,
 } from 'react-native';
 
-import {connect} from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { AddTask } from '../../app/taskListSlice';
 
+function AddView(props) {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {newTaskName: ''};
+  // }
+  const dispatch = useDispatch();
 
-class AddView extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {newTaskName: ''};
-  }
-
-  render() {
-    const onAddNewTask = this.props.onAddNewTask;
-
-    return (
-      <View style={styles.addView}>
-        <Text style={{fontSize: 18, marginBottom: 10}}>To Do App</Text>
-        <View style={{flexDirection: 'row'}}>
-          <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-            <TextInput
-              returnKeyType="done"
-              underlineColorAndroid="transparent"
-              value={`${this.state.newTaskName}`}
-              onSubmitEditing={() => onAddNewTask(this.state.newTaskName)}
-              onChangeText={text => this.setState({newTaskName: text})}
-              placeholder="Task name"
-              style={[{flex: 1}, styles.input]}
-            />
-          </View>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => onAddNewTask(this.state.newTaskName)}>
-            <Text style={{color: 'white'}}>Add</Text>
-          </TouchableOpacity>
+  return (
+    <View style={styles.addView}>
+      <Text style={{ fontSize: 18, marginBottom: 10 }}>To Do App</Text>
+      <View style={{ flexDirection: 'row' }}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+          <TextInput
+            returnKeyType="done"
+            underlineColorAndroid="transparent"
+            // value={`${this.state.newTaskName}`}
+            // onSubmitEditing={() => onAddNewTask(this.state.newTaskName)}
+            // onChangeText={text => this.setState({ newTaskName: text })}
+            placeholder="Task name"
+            style={[{ flex: 1 }, styles.input]}
+          />
         </View>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => dispatch(AddTask)}>
+          <Text style={{ color: 'white' }}>Add</Text>
+        </TouchableOpacity>
       </View>
-    );
-  }
+    </View>
+  );
 }
+
+export default connect()(AddView);
 
 const styles = StyleSheet.create({
   addView: {
@@ -63,7 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowColor: 'gray',
     elevation: 2,
@@ -86,21 +85,3 @@ const styles = StyleSheet.create({
   },
 });
 
-// Action
-const addTask = name => {
-  return {
-    type: 'ADD',
-    taskName: name,
-  };
-};
-
-export default connect(
-  state => {
-    return {};
-  },
-  dispatch => {
-    return {
-      onAddNewTask: name => dispatch(addTask(name)),
-    };
-  },
-)(AddView);

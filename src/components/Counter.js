@@ -6,28 +6,24 @@ import {
   Text,
   View,
 } from 'react-native';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import {increase, decrease} from '../../app/counterSlice';
 
-export default class Counter extends Component {
-  constructor(props) {
-    super(props);
-  }
 
-  render() {
-    const {val, addNumber, subNumber} = this.props;
+function Counter(props){
+  const dispatch = useDispatch();
+  const {number} = useSelector(state => state.counter);
 
     return (
       <View style={styles.counterView}>
-        <Button onPress={() => subNumber(val - 1)} title="Sub" />
-        <Text>Counter: {val}</Text>
-        <Button onPress={() => addNumber(val + 1)} title="Add" />
+        <Button title="ADD" onPress={() =>  dispatch(increase())}/>
+        <Text>Counter: {number}</Text>
+        <Button title="SUB" onPress={() => dispatch(decrease())}  />
       </View>
     );
-  }
 }
 
-Counter.defaultProps = {
-  number: 1,
-};
+export default connect()(Counter);
 
 const styles = StyleSheet.create({
   counterView: {
